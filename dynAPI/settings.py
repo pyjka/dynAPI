@@ -11,6 +11,9 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+import json
+with open('config.json') as json_data:
+    data = json.load(json_data)
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -49,7 +52,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'untitled3.urls'
+ROOT_URLCONF = 'dynAPI.urls'
 
 TEMPLATES = [
     {
@@ -68,7 +71,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'untitled3.wsgi.application'
+WSGI_APPLICATION = 'dynAPI.wsgi.application'
 
 
 # Database
@@ -76,8 +79,12 @@ WSGI_APPLICATION = 'untitled3.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': data['db_settings']['name'],
+        'USER' : data['db_settings']['user'],
+        'PASSWORD': data['db_settings']['password'],
+        'HOST': data['db_settings']['host'],
+        'PORT': data['db_settings']['port']
     }
 }
 

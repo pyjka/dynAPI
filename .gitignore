@@ -185,3 +185,4 @@ venv.bak/
 
 .pyc
 .idea
+config.json
