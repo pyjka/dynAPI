@@ -1,6 +1,6 @@
-from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from service.creation import create_fields
 #create custom API here
 
 class CreateAPI(APIView):
@@ -12,5 +12,8 @@ class CreateAPI(APIView):
         return Response({'response' : f'{request.method} methot now allowed'})
 
     def post(self, request):
-        #test output
+        if request.method ==  'POST':
+            tmp_var = request.body
+            fields = create_fields(tmp_var)
+            return Response({'result':fields})
         return Response({'response': [{'result':'Hello, world!', 'method':f'{request.method}'}]})
